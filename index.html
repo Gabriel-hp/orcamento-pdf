@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orçamento - Oficina Marinho</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- html2pdf CDN link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="text-center mb-4">
+            <h1 class="text-primary">Oficina Marinho - Orçamento</h1>
+            <p class="text-muted">Preencha o formulário para gerar o orçamento em PDF</p>
+        </div>
+        <div class="card shadow p-4">
+            <div id="invoice">
+                <h2 class="text-center mb-4">Oficina Marinho - Orçamento</h2>
+                <form id="form-fields">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label">Nome do Cliente</label>
+                            <input type="text" class="form-control" id="name" placeholder="Digite o nome" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone" class="form-label">Telefone</label>
+                            <input type="text" class="form-control" id="phone" placeholder="Digite o telefone" />
+                        </div>
+                    </div>
+                    <h4 class="mb-3">Informações do Veículo</h4>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="car-model" class="form-label">Modelo do Carro</label>
+                            <input type="text" class="form-control" id="car-model" placeholder="Ex: Corolla" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="plate" class="form-label">Placa</label>
+                            <input type="text" class="form-control" id="plate" placeholder="Digite a placa" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="color" class="form-label">Cor</label>
+                            <input type="text" class="form-control" id="color" placeholder="Ex: Prata" />
+                        </div>
+                        <div class="col-md-4">
+                            <label for="year" class="form-label">Ano</label>
+                            <input type="text" class="form-control" id="year" placeholder="Ex: 2022" />
+                        </div>
+                        <div class="col-md-4">
+                            <label for="model" class="form-label">Modelo</label>
+                            <input type="text" class="form-control" id="model" placeholder="Ex: Sedan" />
+                        </div>
+                    </div>
+                    <h4 class="mb-3">Tipo de Serviço</h4>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="120" id="polimento" />
+                        <label class="form-check-label" for="polimento">
+                            Polimento - R$120,00
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="0" id="pintura" />
+                        <label class="form-check-label" for="pintura">
+                            Pintura (peça) - R$250,00
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="0" id="funilaria" />
+                        <label class="form-check-label" for="funilaria">
+                            Funilaria (peça) - R$150,00
+                        </label>
+                    </div>
+                    <div class="row mb-3 mt-3">
+                        <div class="col-md-6">
+                            <label for="qtd-pecas" class="form-label">Quantidade de Peças Afetadas</label>
+                            <input type="number" class="form-control" id="qtd-pecas" placeholder="Digite a quantidade" />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="valor-reparos" class="form-label">Valor Total Reparos (R$)</label>
+                            <input type="number" class="form-control" id="valor-reparos" placeholder="Digite o valor" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="pecas" class="form-label">Nome das Peças</label>
+                            <textarea class="form-control" id="pecas" rows="2" placeholder="Ex: Porta dianteira, para-choque"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="entrega" class="form-label">Data Prevista para Entrega</label>
+                            <input type="date" class="form-control" id="entrega" />
+                        </div>
+                        <div class="col-6">
+                            <label for="inicio" class="form-label">Quando levar o carro à oficina</label>
+                            <input type="date" class="form-control" id="inicio" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <label for="obs" class="form-label">Observações</label>
+                            <textarea class="form-control" id="obs" rows="3" placeholder="Detalhes adicionais"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <h5 class="text-end">Total: <span id="total">R$0,00</span></h5>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="text-center mt-4">
+                <button id="download-button" class="btn btn-primary">Gerar PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const button = document.getElementById('download-button');
+        const checkboxes = document.querySelectorAll('.form-check-input');
+        const totalField = document.getElementById('total');
+
+        function calculateTotal() {
+            let total = 0;
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    total += parseFloat(checkbox.value);
+                }
+            });
+            const qtdPecas = parseInt(document.getElementById('qtd-pecas').value || 0);
+            const valorReparos = parseFloat(document.getElementById('valor-reparos').value || 0);
+            total += qtdPecas * valorReparos;
+            totalField.textContent = `R$${total.toFixed(2)}`;
+        }
+
+        checkboxes.forEach((checkbox) =>
+            checkbox.addEventListener('change', calculateTotal)
+        );
+        document.getElementById('qtd-pecas').addEventListener('input', calculateTotal);
+        document.getElementById('valor-reparos').addEventListener('input', calculateTotal);
+
+        function generatePDF() {
+    const element = document.getElementById('invoice');
+    const options = {
+        margin: 10,
+        filename: 'orcamento-oficina.pdf',
+        html2canvas: {
+            scale: 2,
+            scrollY: 0,
+        },
+        jsPDF: {
+            unit: 'mm',
+            format: 'a4',
+        },
+        pagebreak: {
+            mode: ['avoid-all', 'css', 'legacy'],
+        }
+    };
+    html2pdf().set(options).from(element).save();
+}
+
+
+        button.addEventListener('click', generatePDF);
+    </script>
+</body>
+</html>
