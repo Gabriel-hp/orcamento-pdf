@@ -149,9 +149,25 @@
         document.getElementById('valor-reparos').addEventListener('input', calculateTotal);
 
         function generatePDF() {
-            const element = document.getElementById('invoice');
-            html2pdf().from(element).save();
+    const element = document.getElementById('invoice');
+    const options = {
+        margin: 10,
+        filename: 'orcamento-oficina.pdf',
+        html2canvas: {
+            scale: 2,
+            scrollY: 0,
+        },
+        jsPDF: {
+            unit: 'mm',
+            format: 'a4',
+        },
+        pagebreak: {
+            mode: ['avoid-all', 'css', 'legacy'],
         }
+    };
+    html2pdf().set(options).from(element).save();
+}
+
 
         button.addEventListener('click', generatePDF);
     </script>
